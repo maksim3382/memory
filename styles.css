@@ -1,0 +1,153 @@
+:root {
+  --bg: #ffffff;
+  --text: #141414;
+  --muted: #555555;
+  --line: #d9d9d9;
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: "Manrope", sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; overflow-x: hidden; }
+.container { width: min(1120px, 92%); margin: 0 auto; }
+
+/* Зернистый фон с pointer-events: none, чтобы клики проходили сквозь него */
+.grain-bg::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.section { padding: 120px 0; }
+
+/* Изменения в шапке сайта */
+.header { 
+  position: sticky; 
+  top: 0; 
+  z-index: 100; 
+  background: #000; 
+  padding: 15px 0; 
+}
+
+/* Настраиваем контейнер внутри шапки, чтобы элементы распределялись по краям */
+.header .container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Выравнивает всё содержимое (логотип) по левому краю */
+}
+
+/* Убираем автоматические отступы, которые центрировали картинку */
+.logo img { 
+  height: 34px; 
+  display: block; 
+  margin: 0; /* Раньше было margin: 0 auto, меняем на 0 */
+}
+
+.hero { padding-top: 50px; padding-bottom: 30px; }
+.hero-text { text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+.badge { 
+  display: inline-flex; 
+  border: 1px solid var(--line); 
+  background: #f7f7f7; 
+  border-radius: 999px; 
+  font-size: 0.84rem; 
+  padding: 8px 16px; 
+  margin-bottom: 24px;
+}
+
+.hero h1 { 
+  font-family: 'Montserrat', sans-serif !important; 
+  font-weight: 800; 
+  text-transform: uppercase; 
+  letter-spacing: -0.02em; 
+  font-size: clamp(2.5rem, 7vw, 5rem); 
+  line-height: 1.0; 
+  margin-bottom: 32px;
+}
+
+.hero-text > p { 
+  max-width: 620px; 
+  color: var(--muted); 
+  margin-bottom: 60px; 
+  margin-left: auto; 
+  margin-right: auto; 
+  font-size: 1.1rem;
+}
+
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+.btn { border-radius: 50px; padding: 16px 32px; font-weight: 700; text-decoration: none; transition: 0.3s; cursor: pointer; border: none; }
+.btn-primary { color: #fff; background: #000; }
+.btn-light { border: 1px solid var(--line); color: var(--text); background: #fff; }
+.btn:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+
+.timeline { border-left: 2px solid #000; padding-left: 40px; margin: 40px auto 0; text-align: left; max-width: 800px; }
+.timeline-item { position: relative; margin-bottom: 100px; }
+.timeline-item::before { content: ''; position: absolute; left: -49px; top: 8px; width: 16px; height: 16px; background: #000; border-radius: 50%; }
+.year-badge { font-weight: 800; color: #999; font-size: 1.3rem; margin-bottom: 8px; display: block; }
+.timeline-item h2 { margin-bottom: 12px; }
+.italic-text { margin-top: 15px; font-style: italic; color: #555; }
+.btn-link { display: inline-block; margin-top: 10px; color: #000; font-weight: 700; text-decoration: underline; }
+
+.section-title { text-align: center; margin-bottom: 60px; }
+.section-title h2 { font-size: 2.5rem; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
+
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+.memory-card { 
+  background: #fff; 
+  padding: 20px; 
+  border-radius: 24px; 
+  border: 1px solid #f0f0f0; 
+  box-shadow: var(--shadow); 
+  transition: 0.3s;
+  cursor: pointer;
+}
+.memory-card:hover { transform: translateY(-5px); }
+
+.friends-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
+.friend-note { padding: 30px; border: 1px solid var(--line); border-radius: 24px; background: #fdfdfd; }
+.friend-note cite { display: block; margin-top: 20px; font-weight: 700; font-style: normal; color: #888; }
+
+.footer { padding: 60px 0; border-top: 1px solid var(--line); text-align: center; color: var(--muted); }
+
+.reveal { opacity: 0; transform: translateY(30px); transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Модальное окно Lightbox */
+.lightbox { 
+  border: none; 
+  border-radius: 24px; 
+  padding: 0; 
+  max-width: 800px; 
+  width: 90%; 
+  margin: auto; 
+  overflow: hidden; 
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+.lightbox::backdrop { background: rgba(0,0,0,0.85); }
+.lightbox-close { 
+  position: absolute; 
+  top: 15px; 
+  right: 15px; 
+  border: none; 
+  background: #fff; 
+  width: 36px; 
+  height: 36px; 
+  border-radius: 50%; 
+  cursor: pointer; 
+  font-size: 1.4rem; 
+  font-weight: bold;
+  z-index: 10; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+.lightbox-content { display: flex; flex-direction: column; background: #fff; }
+.lightbox-content img { width: 100%; max-height: 70vh; object-fit: contain; background: #111; display: block; }
+.lightbox-content p { padding: 25px; font-size: 1.05rem; line-height: 1.5; color: #222; }
