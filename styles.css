@@ -22,7 +22,7 @@ body { font-family: "Manrope", sans-serif; color: var(--text); background: var(-
     z-index: 9999;
 }
 
-.section { padding: 60px 0; }
+.section { padding: 30px 0; }
 
 /* Изменения в шапке сайта */
 .header { 
