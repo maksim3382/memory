@@ -29,5 +29,5 @@ const memories = [
   { src: 'assets/28.jpg', title: '', description: 'Как говорится: «Танцы, танцы, кто не любит танцы, а у нас в Пресс-центре, кто не любит Тимура?»' },
   { src: 'assets/29.jpg', title: '', description: 'Просто эстетик, умняшка, диджитал, mister communication boy' },
   { src: 'assets/25.jpg', title: '', description: 'Тут даже без слов все понятно…' },
-
+  { src: 'assets/30.jpg', title: '', description: 'Собрались и поставили точку' },
 ];
